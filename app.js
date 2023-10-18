@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Mount the "users" routes
-app.use('/users', require('./src/routes/users'));
+app.use('/api/users', require('./src/routes/users'));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
