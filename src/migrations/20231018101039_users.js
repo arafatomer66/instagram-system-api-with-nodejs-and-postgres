@@ -8,7 +8,7 @@
 //     created_at timestamp with time zone Default current_timestamp,
 //     updated_at timestamp with time zone Default current_timestamp,
 //     username varchar(30) not null,
-//     bio varchar(400)  not null default '',
+//     bio varchar(400) default '',
 // 	avatar varchar(200),
 // 	phone varchar(25),
 // 	email varchar(15),
@@ -23,15 +23,15 @@ exports.up = function(knex) {
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
       table.string('username', 30).notNullable();
-      table.string('bio', 400).notNullable().defaultTo('');
+      table.string('bio', 400).defaultTo('');
       table.string('avatar', 200);
-      table.string('phone', 25);
-      table.string('email', 15);
-      table.string('status', 15);
+      table.string('phone', 50);
+      table.string('email', 50);
+      table.string('status', 50);
       table.string('password', 50);
     })
-    .raw('ALTER TABLE users ADD CONSTRAINT coalesce_check1 CHECK (coalesce(phone, email) is not null)')
-    .raw('ALTER TABLE users ADD CONSTRAINT coalesce_check2 CHECK (coalesce(email, password) is not null)');
+    // .raw('ALTER TABLE users ADD CONSTRAINT coalesce_check1 CHECK (coalesce(phone, email) is not null)')
+    // .raw('ALTER TABLE users ADD CONSTRAINT coalesce_check2 CHECK (coalesce(email, password) is not null)');
   };
   
   exports.down = function(knex) {

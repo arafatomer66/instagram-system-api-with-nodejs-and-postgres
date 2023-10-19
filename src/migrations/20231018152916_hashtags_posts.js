@@ -3,9 +3,9 @@
  * @returns { Promise<void> }
  */
 
-// Create Table hastags_posts (
+// Create Table hashtags_posts (
 //     id serial primary key,
-// 	hashtag_id integer not null references hastags(id) on delete cascade,
+// 	hashtag_id integer not null references hashtags(id) on delete cascade,
 // 	post_id integer not null references posts(id) on delete cascade,
 // 	unique(hashtag_id,post_id)
 // )

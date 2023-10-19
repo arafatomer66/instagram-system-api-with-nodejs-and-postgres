@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 
-// Create Table hastages (
+// Create Table hashtags (
 //     id serial primary key,
 //     created_at timestamp with time zone Default current_timestamp,
 // 	title varchar(20) not null unique,
