@@ -1,40 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const knex = require('knex')(require('../../knexfile').development);
 
-// Get all users
+// ... Other routes ...
+
+// Get all users using raw SQL
 router.get('/', async (req, res) => {
-  const users = await User.getAllUsers();
-  res.json(users);
-});
+  try {
+    // Use Knex.raw to execute a raw SQL query to select all users
+    const result = await knex.raw('SELECT * FROM users');
 
-// Get a user by ID
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const user = await User.getUserById(id);
-  res.json(user);
-});
-
-// Create a new user
-router.post('/', async (req, res) => {
-  const user = req.body;
-  const newUser = await User.createUser(user);
-  res.json(newUser);
-});
-
-// Update a user by ID
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const user = req.body;
-  const updatedUser = await User.updateUser(id, user);
-  res.json(updatedUser);
-});
-
-// Delete a user by ID
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  await User.deleteUser(id);
-  res.sendStatus(204);
+    if (result.rows.length > 0) {
+      res.json(result.rows); // Respond with all users' data
+    } else {
+      res.sendStatus(404); // No users found
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500); // Internal server error
+  }
 });
 
 module.exports = router;
